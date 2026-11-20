@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
 	kotlin("jvm") version "2.4.21"
 	kotlin("plugin.spring") version "2.4.21"
@@ -10,7 +12,7 @@ version = "0.0.1-SNAPSHOT"
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(26)
+		languageVersion = JavaLanguageVersion.of(27)
 	}
 }
 
@@ -33,8 +35,13 @@ dependencies {
 
 kotlin {
 	compilerOptions {
+		jvmTarget = JvmTarget.JVM_26
 		freeCompilerArgs.addAll("-Xjsr305=strict")
 	}
+}
+
+tasks.withType<JavaCompile>().configureEach {
+	options.release.set(26)
 }
 
 tasks.withType<Test> {
